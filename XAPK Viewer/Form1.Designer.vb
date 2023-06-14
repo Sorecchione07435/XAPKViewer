@@ -42,6 +42,7 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.XAPKViewerGitHubPageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -113,7 +114,7 @@ Partial Class Form1
         '
         'ToolStripMenuItem1
         '
-        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem, Me.WToolStripMenuItem})
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem, Me.WToolStripMenuItem, Me.XAPKViewerGitHubPageToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(24, 20)
         Me.ToolStripMenuItem1.Text = "?"
@@ -214,6 +215,12 @@ Partial Class Form1
         Me.WToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.WToolStripMenuItem.Text = "What is an XAPK file?"
         '
+        'XAPKViewerGitHubPageToolStripMenuItem
+        '
+        Me.XAPKViewerGitHubPageToolStripMenuItem.Name = "XAPKViewerGitHubPageToolStripMenuItem"
+        Me.XAPKViewerGitHubPageToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.XAPKViewerGitHubPageToolStripMenuItem.Text = "XAPK Viewer GitHub Page"
+        '
         'Form1
         '
         Me.AllowDrop = True
@@ -259,5 +266,6 @@ Partial Class Form1
     Friend WithEvents AboutToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents WToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents XAPKViewerGitHubPageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

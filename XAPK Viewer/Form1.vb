@@ -231,4 +231,12 @@ Public Class Form1
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         AboutBox.Show()
     End Sub
+
+    Private Sub WToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WToolStripMenuItem.Click
+        Process.Start("https://github.com/Sorecchione07435/XAPKFileFormat/tree/main")
+    End Sub
+
+    Private Sub XAPKViewerGitHubPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XAPKViewerGitHubPageToolStripMenuItem.Click
+        Process.Start("https://github.com/Sorecchione07435/XAPKViewer/tree/main")
+    End Sub
 End Class
