@@ -11,7 +11,12 @@ To extract the OBB files of the application it is necessary to specify the name 
 ![screenshot](https://github.com/Sorecchione07435/XAPKViewer/assets/111366201/50dd8214-276e-4031-8c5a-a66e8c10c03a)
 
 If you are interested in this program you can get it from here:
+                
+### Download From Latest Release:
+Ver 1.0:
+[Download](https://github.com/Sorecchione07435/XAPKViewer/releases/download/xapk/XAPK.Viewer.exe)
 
+### Download From Uptodown
 <a href='https://xapk-viewer.en.uptodown.com/windows' title='Download XAPK Viewer' >
                 <img src='https://stc.utdstc.com/img/mediakit/download-gio-big.png' alt='Download XAPK Viewer'>
                 </a>
