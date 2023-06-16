@@ -4,8 +4,11 @@ Imports System.IO
 Public Class Form1
     Dim XAPKPath As String
     Dim XAPKLoaded As Boolean = False
+    ' Dim XAPKError As Boolean = False
 
     Private Sub OpenXAPKToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenXAPKToolStripMenuItem.Click
+
+
         If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
             XAPKPath = OpenFileDialog1.FileName
             ExtractXAPK.RunWorkerAsync()
@@ -15,8 +18,13 @@ Public Class Form1
     End Sub
 
     Private Sub ExtractXAPK_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles ExtractXAPK.DoWork
-        MkDir(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath))
-        ZipFile.ExtractToDirectory(XAPKPath, System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath))
+        Try
+            MkDir(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath))
+            ZipFile.ExtractToDirectory(XAPKPath, System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath))
+        Catch ex As Exception
+            MsgBox("An unhandled exception occurred:" & vbCrLf & vbCrLf & ex.Message, MsgBoxStyle.Critical, "Error")
+        End Try
+    
     End Sub
 
 
@@ -32,13 +40,33 @@ Public Class Form1
         ExportIconToolStripMenuItem.Enabled = True
         ExtractAPKOBBToolStripMenuItem.Enabled = True
 
+        Dim paths() As String = IO.Directory.GetFiles(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), "*.apk")
+        If paths.Length > 1 Then
+            CloseXAPKToolStripMenuItem.PerformClick()
+            RichTextBox1.ForeColor = Color.Red
+            RichTextBox1.Text = RichTextBox1.Text & vbCrLf & vbCrLf & "XAPK Viewer does not support XAPK files with split APK sets" & vbCrLf & "Only XAPK files with OBB expansions are supported"
+            Exit Sub
+        End If
+
         If My.Computer.FileSystem.FileExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\manifest.json") = True Then
+            RichTextBox1.ForeColor = Color.Black
             RichTextBox1.Text = System.IO.File.ReadAllText(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\manifest.json")
         Else
             RichTextBox1.ForeColor = Color.Red
-            RichTextBox1.Text = "No manifest.json founded inside the XAPK"
+
+            CloseXAPKToolStripMenuItem.PerformClick()
+
+            RichTextBox1.Text = RichTextBox1.Text & vbCrLf & vbCrLf & "No manifest.json founded inside the XAPK" & vbCrLf & "Consequently, the XAPK file cannot be opened" & vbCrLf & vbCrLf & "If you want to open this XAPK file add a manifest.json with the respective application information"
+            '  XAPKError = True
         End If
 
+        Dim paths2() As String = IO.Directory.GetFiles(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), "*.apk")
+        If Not paths2.Length > 0 Then
+            CloseXAPKToolStripMenuItem.PerformClick()
+            RichTextBox1.ForeColor = Color.Red
+            RichTextBox1.Text = RichTextBox1.Text & vbCrLf & vbCrLf & "No APK file was found within the XAPK" & vbCrLf & "Consequently, the XAPK file cannot be opened" & vbCrLf & vbCrLf & "check if the file is not corrupted or an invalid XAPK file"
+            'XAPKError = True
+        End If
         Label2.Text = IO.Path.GetFileName(XAPKPath)
     End Sub
 
@@ -130,6 +158,12 @@ Public Class Form1
     End Sub
 
     Private Sub ExportAPKToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportAPKToolStripMenuItem.Click
+
+        Dim paths() As String = IO.Directory.GetFiles(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), "*.apk")
+        If paths.Length > 1 Then
+            MsgBox("Extracting more than one APK file into an XAPK file with Split APKs is currently not supported", MsgBoxStyle.Critical, "Error") : Exit Sub
+        End If
+
         For Each f In Directory.GetFiles((System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath)), "*.apk", SearchOption.AllDirectories)
             If File.Exists(f) Then
                 Dim FBD As New FolderBrowserDialog
@@ -158,6 +192,10 @@ Public Class Form1
     End Sub
 
     Private Sub ExportOBBFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportOBBFilesToolStripMenuItem.Click
+        If My.Computer.FileSystem.DirectoryExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android") = False Then
+            MsgBox("This XAPK file does not contain any OBB files", MsgBoxStyle.Critical, "Error") : Exit Sub
+        End If
+
         Dim PackageNamePrompt = InputBox("Type the application package here.")
 
         If My.Computer.FileSystem.DirectoryExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android\obb\" & PackageNamePrompt) = True Then
@@ -180,10 +218,15 @@ Public Class Form1
             PackageNamePrompt = Nothing
         End If
 
-      
+
     End Sub
 
     Private Sub ExtractAPKOBBToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExtractAPKOBBToolStripMenuItem.Click
+
+        If My.Computer.FileSystem.DirectoryExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android") = False Then
+            MsgBox("This XAPK file does not contain any OBB files", MsgBoxStyle.Critical, "Error") : Exit Sub
+        End If
+
         Dim FBD As New FolderBrowserDialog
         '  SFD.Filter = "Android Package|*.apk"
         'FBD.t = "Export APK files Directory..."
@@ -220,7 +263,7 @@ Public Class Form1
         End If
 
 
-     
+
 
     End Sub
 
