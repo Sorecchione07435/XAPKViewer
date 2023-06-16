@@ -10,9 +10,13 @@ To extract the OBB files of the application it is necessary to specify the name 
 
 ![screenshot](https://github.com/Sorecchione07435/XAPKViewer/assets/111366201/50dd8214-276e-4031-8c5a-a66e8c10c03a)
 
+
 If you are interested in this program you can get it from here:
                 
 ### Download From Latest Release:
+
+[See Changelog latest version](https://github.com/Sorecchione07435/XAPKViewer/releases/tag/xapk2)
+
 Ver 1.0:
 [Download](https://github.com/Sorecchione07435/XAPKViewer/releases/download/xapk/XAPK.Viewer.exe)
 
