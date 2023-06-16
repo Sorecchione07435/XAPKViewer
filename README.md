@@ -8,7 +8,7 @@ But it does not allow editing of the file
 Useful if you want to extract APK and OBB from the XAPK file and proceed with the manual installation.
 To extract the OBB files of the application it is necessary to specify the name of its package.
 
-Unfortunately with the type of XAPK which contains many divided APKs, you have to choose folder one by one, this problem will be fixed in the next version
+It is not recommended to extract more than one APK file from an XAPK with many split APKs, manual installation is not possible
 
 ![screenshot](https://github.com/Sorecchione07435/XAPKViewer/assets/111366201/50dd8214-276e-4031-8c5a-a66e8c10c03a)
 
