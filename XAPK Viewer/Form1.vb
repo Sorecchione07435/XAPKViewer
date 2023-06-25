@@ -35,8 +35,6 @@ Public Class Form1
         TreeView1.ExpandAll()
         XAPKLoaded = True
         CloseXAPKToolStripMenuItem.Enabled = True
-        ExportOBBFilesToolStripMenuItem.Enabled = True
-        ExportAPKToolStripMenuItem.Enabled = True
         ExportIconToolStripMenuItem.Enabled = True
         ExtractAPKOBBToolStripMenuItem.Enabled = True
 
@@ -58,6 +56,7 @@ Public Class Form1
 
             RichTextBox1.Text = RichTextBox1.Text & vbCrLf & vbCrLf & "No manifest.json founded inside the XAPK" & vbCrLf & "Consequently, the XAPK file cannot be opened" & vbCrLf & vbCrLf & "If you want to open this XAPK file add a manifest.json with the respective application information"
             '  XAPKError = True
+            Exit Sub
         End If
 
         Dim paths2() As String = IO.Directory.GetFiles(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), "*.apk")
@@ -66,6 +65,7 @@ Public Class Form1
             RichTextBox1.ForeColor = Color.Red
             RichTextBox1.Text = RichTextBox1.Text & vbCrLf & vbCrLf & "No APK file was found within the XAPK" & vbCrLf & "Consequently, the XAPK file cannot be opened" & vbCrLf & vbCrLf & "check if the file is not corrupted or an invalid XAPK file"
             'XAPKError = True
+            Exit Sub
         End If
         Label2.Text = IO.Path.GetFileName(XAPKPath)
     End Sub
@@ -107,8 +107,6 @@ Public Class Form1
             XAPKLoaded = False
             XAPKPath = ""
             CloseXAPKToolStripMenuItem.Enabled = False
-            ExportOBBFilesToolStripMenuItem.Enabled = False
-            ExportAPKToolStripMenuItem.Enabled = False
             ExportIconToolStripMenuItem.Enabled = False
             ExtractAPKOBBToolStripMenuItem.Enabled = False
             RichTextBox1.Clear()
@@ -148,8 +146,6 @@ Public Class Form1
         XAPKLoaded = False
         XAPKPath = ""
         CloseXAPKToolStripMenuItem.Enabled = False
-        ExportOBBFilesToolStripMenuItem.Enabled = False
-        ExportAPKToolStripMenuItem.Enabled = False
         ExportIconToolStripMenuItem.Enabled = False
         ExtractAPKOBBToolStripMenuItem.Enabled = False
         RichTextBox1.Clear()
@@ -157,7 +153,7 @@ Public Class Form1
         Label2.Text = Nothing
     End Sub
 
-    Private Sub ExportAPKToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportAPKToolStripMenuItem.Click
+    Private Sub ExportAPKToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         Dim paths() As String = IO.Directory.GetFiles(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), "*.apk")
         If paths.Length > 1 Then
@@ -191,7 +187,7 @@ Public Class Form1
         Next
     End Sub
 
-    Private Sub ExportOBBFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportOBBFilesToolStripMenuItem.Click
+    Private Sub ExportOBBFilesToolStripMenuItem_Click(sender As Object, e As EventArgs)
         If My.Computer.FileSystem.DirectoryExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android") = False Then
             MsgBox("This XAPK file does not contain any OBB files", MsgBoxStyle.Critical, "Error") : Exit Sub
         End If
@@ -223,9 +219,6 @@ Public Class Form1
 
     Private Sub ExtractAPKOBBToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExtractAPKOBBToolStripMenuItem.Click
 
-        If My.Computer.FileSystem.DirectoryExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android") = False Then
-            MsgBox("This XAPK file does not contain any OBB files", MsgBoxStyle.Critical, "Error") : Exit Sub
-        End If
 
         Dim FBD As New FolderBrowserDialog
         '  SFD.Filter = "Android Package|*.apk"
@@ -238,33 +231,41 @@ Public Class Form1
                 End If
             Next
 
-            Dim PackageNamePrompt = InputBox("Type the application package here.")
 
-            If My.Computer.FileSystem.DirectoryExists(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android\obb\" & PackageNamePrompt) = True Then
-
-
-                For Each f In Directory.GetFiles((System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android\obb\" & PackageNamePrompt & "\"), "*.obb", SearchOption.AllDirectories)
-                    If File.Exists(f) Then
-
-                        ' SFD.Filter = "Opacque Blob Binary File|*.obb"
-                        ' SFD.Title = "Export OBB files..."
-
-                        File.Copy(f, Path.Combine(FBD.SelectedPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), Path.GetFileName(f)), True)
-
-
-                    End If
-                Next
-                PackageNamePrompt = Nothing
-            Else
-                MsgBox("Invalid Package Name!")
-                PackageNamePrompt = Nothing
-            End If
-
+            For Each oDir In (New DirectoryInfo(System.IO.Path.GetTempPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath) & "\Android\obb")).GetDirectories()
+                My.Computer.FileSystem.CopyDirectory(oDir.FullName, FBD.SelectedPath & "\" & IO.Path.GetFileNameWithoutExtension(XAPKPath), overwrite:=True)
+            Next oDir
+            ' 0  Dim Package
         End If
 
 
 
 
+
+
+    End Sub
+
+    Public Sub CopyDirectory(ByVal sourcePath As String, ByVal destinationPath As String)
+        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
+
+        ' If the destination folder don't exist then create it
+        If Not System.IO.Directory.Exists(destinationPath) Then
+            System.IO.Directory.CreateDirectory(destinationPath)
+        End If
+
+        Dim fileSystemInfo As System.IO.FileSystemInfo
+        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
+            Dim destinationFileName As String =
+                System.IO.Path.Combine(destinationPath, fileSystemInfo.Name)
+
+            ' Now check whether its a file or a folder and take action accordingly
+            If TypeOf fileSystemInfo Is System.IO.FileInfo Then
+                System.IO.File.Copy(fileSystemInfo.FullName, destinationFileName, True)
+            Else
+                ' Recursively call the mothod to copy all the neste folders
+                CopyDirectory(fileSystemInfo.FullName, destinationFileName)
+            End If
+        Next
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load

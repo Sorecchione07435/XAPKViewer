@@ -28,22 +28,20 @@ Partial Class Form1
         Me.OpenXAPKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseXAPKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ExportAPKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExportOBBFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportIconToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExtractAPKOBBToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.XAPKViewerGitHubPageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ExtractXAPK = New System.ComponentModel.BackgroundWorker()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.WToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.XAPKViewerGitHubPageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -56,13 +54,13 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolStripMenuItem1})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1006, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(968, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenXAPKToolStripMenuItem, Me.CloseXAPKToolStripMenuItem, Me.ToolStripSeparator1, Me.ExportAPKToolStripMenuItem, Me.ExportOBBFilesToolStripMenuItem, Me.ExportIconToolStripMenuItem, Me.ExtractAPKOBBToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenXAPKToolStripMenuItem, Me.CloseXAPKToolStripMenuItem, Me.ToolStripSeparator1, Me.ExportIconToolStripMenuItem, Me.ExtractAPKOBBToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -85,26 +83,12 @@ Partial Class Form1
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(168, 6)
         '
-        'ExportAPKToolStripMenuItem
-        '
-        Me.ExportAPKToolStripMenuItem.Enabled = False
-        Me.ExportAPKToolStripMenuItem.Name = "ExportAPKToolStripMenuItem"
-        Me.ExportAPKToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
-        Me.ExportAPKToolStripMenuItem.Text = "Export APKs"
-        '
-        'ExportOBBFilesToolStripMenuItem
-        '
-        Me.ExportOBBFilesToolStripMenuItem.Enabled = False
-        Me.ExportOBBFilesToolStripMenuItem.Name = "ExportOBBFilesToolStripMenuItem"
-        Me.ExportOBBFilesToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
-        Me.ExportOBBFilesToolStripMenuItem.Text = "Export OBBs Files"
-        '
         'ExportIconToolStripMenuItem
         '
         Me.ExportIconToolStripMenuItem.Enabled = False
         Me.ExportIconToolStripMenuItem.Name = "ExportIconToolStripMenuItem"
         Me.ExportIconToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
-        Me.ExportIconToolStripMenuItem.Text = "Export Icon"
+        Me.ExportIconToolStripMenuItem.Text = "Extract Icon"
         '
         'ExtractAPKOBBToolStripMenuItem
         '
@@ -119,6 +103,24 @@ Partial Class Form1
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(24, 20)
         Me.ToolStripMenuItem1.Text = "?"
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'WToolStripMenuItem
+        '
+        Me.WToolStripMenuItem.Name = "WToolStripMenuItem"
+        Me.WToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.WToolStripMenuItem.Text = "What is an XAPK file?"
+        '
+        'XAPKViewerGitHubPageToolStripMenuItem
+        '
+        Me.XAPKViewerGitHubPageToolStripMenuItem.Name = "XAPKViewerGitHubPageToolStripMenuItem"
+        Me.XAPKViewerGitHubPageToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.XAPKViewerGitHubPageToolStripMenuItem.Text = "XAPK Viewer GitHub Page"
         '
         'SplitContainer1
         '
@@ -136,17 +138,26 @@ Partial Class Form1
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.RichTextBox1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1006, 487)
-        Me.SplitContainer1.SplitterDistance = 493
+        Me.SplitContainer1.Size = New System.Drawing.Size(968, 523)
+        Me.SplitContainer1.SplitterDistance = 474
         Me.SplitContainer1.TabIndex = 1
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(3, 9)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(90, 18)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "File Explorer"
         '
         'Label2
         '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(12, 458)
+        Me.Label2.Location = New System.Drawing.Point(110, 5)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(365, 23)
+        Me.Label2.Size = New System.Drawing.Size(361, 23)
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "   "
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -161,7 +172,7 @@ Partial Class Form1
         Me.TreeView1.Location = New System.Drawing.Point(0, 30)
         Me.TreeView1.Name = "TreeView1"
         Me.TreeView1.ShowRootLines = False
-        Me.TreeView1.Size = New System.Drawing.Size(493, 425)
+        Me.TreeView1.Size = New System.Drawing.Size(474, 490)
         Me.TreeView1.TabIndex = 3
         '
         'Label1
@@ -183,7 +194,7 @@ Partial Class Form1
         Me.RichTextBox1.Location = New System.Drawing.Point(0, 31)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.ReadOnly = True
-        Me.RichTextBox1.Size = New System.Drawing.Size(509, 450)
+        Me.RichTextBox1.Size = New System.Drawing.Size(490, 486)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = ""
         '
@@ -194,40 +205,12 @@ Partial Class Form1
         'ExtractXAPK
         '
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(3, 9)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(90, 18)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "File Explorer"
-        '
-        'AboutToolStripMenuItem
-        '
-        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
-        Me.AboutToolStripMenuItem.Text = "About"
-        '
-        'WToolStripMenuItem
-        '
-        Me.WToolStripMenuItem.Name = "WToolStripMenuItem"
-        Me.WToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
-        Me.WToolStripMenuItem.Text = "What is an XAPK file?"
-        '
-        'XAPKViewerGitHubPageToolStripMenuItem
-        '
-        Me.XAPKViewerGitHubPageToolStripMenuItem.Name = "XAPKViewerGitHubPageToolStripMenuItem"
-        Me.XAPKViewerGitHubPageToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.XAPKViewerGitHubPageToolStripMenuItem.Text = "XAPK Viewer GitHub Page"
-        '
         'Form1
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1006, 511)
+        Me.ClientSize = New System.Drawing.Size(968, 547)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -256,8 +239,6 @@ Partial Class Form1
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents ExportAPKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ExportOBBFilesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ExtractXAPK As System.ComponentModel.BackgroundWorker
     Friend WithEvents TreeView1 As System.Windows.Forms.TreeView
