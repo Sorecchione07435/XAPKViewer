@@ -15,13 +15,16 @@ If you are interested in this program you can get it from here:
                 
 ### Download From Latest Release:
 
-[See Changelog latest version](https://github.com/Sorecchione07435/XAPKViewer/releases/tag/xapk2)
+[See Changelog latest version](https://github.com/Sorecchione07435/XAPKViewer/releases/tag/1.1.2)
 
 Ver 1.0:
 [Download](https://github.com/Sorecchione07435/XAPKViewer/releases/download/xapk/XAPK.Viewer.exe)
 
 Ver 1.1:
 [Download](https://github.com/Sorecchione07435/XAPKViewer/releases/download/xapk2/XAPK.Viewer.exe)
+
+Ver 1.1.2:
+[Download](https://github.com/Sorecchione07435/XAPKViewer/releases/download/1.1.2/XAPK.Viewer.exe)
 
 ### Download From Uptodown
 <a href='https://xapk-viewer.en.uptodown.com/windows' title='Download XAPK Viewer' >
